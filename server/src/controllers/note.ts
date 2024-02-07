@@ -1,6 +1,10 @@
 import { RequestHandler } from 'express';
-import { IncomingBody } from '..';
 import Note, { NoteDocument } from '../models/note';
+
+export interface IncomingBody {
+    title: string
+    description?: string
+}
 
 // Create a note
 export const createNote: RequestHandler  = async (req, res) => {
