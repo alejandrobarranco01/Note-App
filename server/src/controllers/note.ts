@@ -4,6 +4,7 @@ import Note, { NoteDocument } from '../models/note';
 
 // Create a note
 export const createNote: RequestHandler  = async (req, res) => {
+    if (!req.body.title) return res.status(400).json({message: "Title is required"});
     await Note.create<NoteDocument>({
         title: (req.body as IncomingBody).title, 
         description: (req.body as IncomingBody).description
