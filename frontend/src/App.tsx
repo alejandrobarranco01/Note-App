@@ -8,6 +8,14 @@ const App = () => {
     description: '',
   });
 
+  const [notes, setNotes] = useState<
+    {
+      id: string;
+      title: string;
+      description?: string;
+    }[]
+  >([]);
+
   const handleChange: ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   > = (event) => {
@@ -29,7 +37,10 @@ const App = () => {
               description: values.description,
             },
           );
-          console.log(data);
+          if (data.note) {
+            setNotes([...notes, data.note]);
+            setValues({ title: '', description: '' });
+          }
         }}
         className="space-y-6 bg-white shadow-md rounded p-5"
       >
@@ -61,10 +72,9 @@ const App = () => {
       </form>
 
       {/* Note Items */}
-      <NoteItem title="My first re-usable component" />
-      <NoteItem title="Lorem ipsum dolor sit amet consectetur" />
-      <NoteItem title="Hic perferendis at repellendus fuga" />
-      <NoteItem title="In molestiae optio aspernatur repudiandae" />
+      {notes.map((note) => {
+        return <NoteItem key={note.title} title={note.title} />;
+      })}
     </div>
   );
 };

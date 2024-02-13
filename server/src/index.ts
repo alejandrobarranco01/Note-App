@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
-app.use(cors());
+app.use(cors()); // enable cors
 
 app.listen(8000, () => {
   console.log('Server running on port 8000');
