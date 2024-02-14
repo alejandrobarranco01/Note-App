@@ -94,7 +94,6 @@ Each functionality provides appropriate HTTP status codes and JSON responses as 
   ```
 
 3. Connect to the MongoDB database: Add the appropriate connection string to your backend server code before starting the server.
-   Access t
 
 - **Frontend:** Open your web browser and visit [http://localhost:5173](http://localhost:5173)
-  Backend: You can now send requests to your local server endpoints (e.g., [http://localhost:8000/notes](http://localhost:8000/notes))
+  Backend: You can now send requests to your local server endpoints (e.g., [http://localhost:8000/note](http://localhost:8000/note))
