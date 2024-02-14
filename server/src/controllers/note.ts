@@ -37,7 +37,9 @@ export const updateNote: RequestHandler = async (req, res) => {
 
   await note.save();
 
-  res.json({ note }); // 200 OK
+  res.json({
+    note: { id: note._id, title: note.title, description: note.description },
+  }); // 200 OK
 };
 
 // Delete a note
@@ -54,7 +56,14 @@ export const deleteNote: RequestHandler = async (req, res) => {
 // Get all notes
 export const getNotes: RequestHandler = async (req, res) => {
   const notes = await Note.find(); // find all notes
-  res.status(200).json({ notes }); // 200 OK
+
+  res.status(200).json({
+    notes: notes.map((note) => ({
+      id: note._id,
+      title: note.title,
+      description: note.description,
+    })),
+  }); // 200 OK with the notes in the body
 };
 
 // Get a note

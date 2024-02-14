@@ -3,9 +3,11 @@ import AppButton from './AppButton';
 
 interface NoteItemProps {
   title?: string;
+  onEditClick?(): void;
+  onDeleteClick?(): void;
 }
 
-const NoteItem: FC<NoteItemProps> = ({ title }) => {
+const NoteItem: FC<NoteItemProps> = ({ title, onEditClick, onDeleteClick }) => {
   return (
     <div className="bg-white shadow-md rounded p-5 text-center">
       <p className="font-semibold text-gray-700 text-lg mb-4">{title}</p>
@@ -17,8 +19,8 @@ const NoteItem: FC<NoteItemProps> = ({ title }) => {
             console.log('View');
           }}
         />
-        <AppButton title="Edit" type="normal" />
-        <AppButton title="Delete" type="danger" />
+        <AppButton onClick={onEditClick} title="Edit" type="normal" />
+        <AppButton onClick={onDeleteClick} title="Delete" type="danger" />
       </div>
     </div>
   );

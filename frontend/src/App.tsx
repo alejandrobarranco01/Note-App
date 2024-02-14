@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useState } from 'react';
+import React, { ChangeEventHandler, useState, useEffect } from 'react';
 import NoteItem from './components/NoteItem';
 import axios from 'axios';
 
@@ -7,6 +7,8 @@ const App = () => {
     title: '',
     description: '',
   });
+
+  const [selectedNoteId, setSelectedNoteId] = useState('');
 
   const [notes, setNotes] = useState<
     {
@@ -25,21 +27,52 @@ const App = () => {
     });
   };
 
+  useEffect(() => {
+    const fetchNotes = async () => {
+      const { data } = await axios.get('http://localhost:8000/note/'); // get all notes
+      setNotes(data.notes); // set the notes
+    };
+    fetchNotes(); // call the function on component mount
+  }, []);
+
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <form
         onSubmit={async (evt) => {
           evt.preventDefault();
-          const { data } = await axios.post(
-            'http://localhost:8000/note/create',
-            {
-              title: values.title,
-              description: values.description,
-            },
-          );
-          if (data.note) {
-            setNotes([...notes, data.note]);
-            setValues({ title: '', description: '' });
+          // If a note is selected, update it
+          if (selectedNoteId) {
+            const { data } = await axios.patch(
+              `http://localhost:8000/note/${selectedNoteId}`,
+              {
+                title: values.title,
+                description: values.description,
+              },
+            );
+            // If the update was successful, update the notes in state and clear the form
+            if (data.note) {
+              const newNotes = notes.map((note) => {
+                if (note.id === selectedNoteId) {
+                  return data.note;
+                }
+                return note;
+              });
+              setNotes(newNotes);
+              setValues({ title: '', description: '' });
+              setSelectedNoteId('');
+            }
+          } else {
+            const { data } = await axios.post(
+              'http://localhost:8000/note/create',
+              {
+                title: values.title,
+                description: values.description,
+              },
+            );
+            if (data.note) {
+              setNotes([...notes, data.note]);
+              setValues({ title: '', description: '' });
+            }
           }
         }}
         className="space-y-6 bg-white shadow-md rounded p-5"
@@ -73,7 +106,28 @@ const App = () => {
 
       {/* Note Items */}
       {notes.map((note) => {
-        return <NoteItem key={note.title} title={note.title} />;
+        return (
+          <NoteItem
+            onEditClick={() => {
+              setSelectedNoteId(note.id);
+              setValues({
+                title: note.title,
+                description: note.description || '',
+              });
+            }}
+            onDeleteClick={async () => {
+              const result = confirm(
+                'Are ou sure you want to delete this note?',
+              );
+              if (!result) return;
+              await axios.delete(`http://localhost:8000/note/${note.id}`);
+              const newNotes = notes.filter((n) => n.id !== note.id); // filter out the deleted note
+              setNotes(newNotes);
+            }}
+            key={note.id}
+            title={note.title}
+          />
+        );
       })}
     </div>
   );
