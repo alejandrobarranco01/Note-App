@@ -2,52 +2,15 @@
 
 ## Overview
 
-Note-App is a demonstration of basic REST API functionality using React, Tailwind CSS, Express, and MongoDB. It consists of two main folders: "frontend" for the React frontend and "server" for the Express backend.
+Note-App is a demonstration of basic REST API functionality using React, Tailwind CSS, Express, and MongoDB. TypeScript is used for type safety throughout the application. It consists of two main folders: "frontend" for the React frontend and "server" for the Express backend.
 
 ### Frontend (frontend)
 
-The frontend folder contains the React application for the Note-App.
-
-- **Dependencies:**
-  - axios: For making HTTP requests.
-  - postcss-cli: Command-line tool for processing CSS with PostCSS.
-  - react: JavaScript library for building user interfaces.
-  - react-dom: Entry point to the DOM and server renderers for React.
-- **DevDependencies:**
-  - @types/react: TypeScript type definitions for React.
-  - @types/react-dom: TypeScript type definitions for React DOM.
-  - @typescript-eslint/eslint-plugin: TypeScript specific linting rules for ESLint.
-  - @typescript-eslint/parser: TypeScript parser for ESLint.
-  - @vitejs/plugin-react: Vite plugin for React support.
-  - autoprefixer: PostCSS plugin to parse CSS and add vendor prefixes.
-  - eslint: JavaScript and TypeScript code quality tool.
-  - eslint-config-prettier: Turns off all rules that are unnecessary or might conflict with Prettier.
-  - eslint-plugin-prettier: Runs Prettier as an ESLint rule.
-  - eslint-plugin-react-hooks: ESLint plugin for React hooks.
-  - eslint-plugin-react-refresh: ESLint plugin for React Refresh.
-  - postcss: Tool for transforming CSS with JavaScript plugins.
-  - prettier: Opinionated code formatter.
-  - tailwindcss: Utility-first CSS framework for rapid UI development.
-  - typescript: TypeScript language server.
+The frontend directory contains the React application for Note-App. It utilizes React for building user interfaces and TypeScript for type safety. Development tools such as ESLint and Prettier ensure code quality and consistency. Tailwind CSS is used for styling, and axios handles HTTP requests for communication with the backend. Vite is employed as the build tool.
 
 ### Backend (server)
 
-The server folder contains the Express backend for the Note-App.
-
-- **Dependencies:**
-  - cors: Middleware for enabling Cross-Origin Resource Sharing (CORS).
-  - express: Web framework for Node.js.
-  - mongoose: MongoDB object modeling tool designed to work in an asynchronous environment.
-- **DevDependencies:**
-  - @types/cors: TypeScript type definitions for CORS.
-  - @types/express: TypeScript type definitions for Express.
-  - @types/mongoose: TypeScript type definitions for Mongoose.
-  - @types/node: TypeScript type definitions for Node.js.
-  - eslint: JavaScript and TypeScript code quality tool.
-  - eslint-config-prettier: Turns off all rules that are unnecessary or might conflict with Prettier.
-  - eslint-plugin-prettier: Runs Prettier as an ESLint rule.
-  - prettier: Opinionated code formatter.
-  - ts-node-dev: TypeScript execution and development tool that restarts when files are modified.
+The server directory houses the Express backend for Note-App. It leverages Express, a web framework for Node.js, and Mongoose for MongoDB object modeling. TypeScript definitions enhance type safety, while ESLint and Prettier maintain code quality. CORS middleware enables Cross-Origin Resource Sharing, facilitating frontend-backend communication. Additionally, ts-node-dev enables efficient TypeScript execution and development.
 
 ## Sample Functionality
 
