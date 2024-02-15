@@ -2,6 +2,12 @@ import React, { ChangeEventHandler, useState, useEffect } from 'react';
 import NoteItem from './components/NoteItem';
 import axios from 'axios';
 
+type NoteType = {
+  id: string;
+  title: string;
+  description?: string;
+};
+
 const App = () => {
   const [values, setValues] = useState({
     title: '',
@@ -9,14 +15,8 @@ const App = () => {
   });
 
   const [selectedNoteId, setSelectedNoteId] = useState('');
-
-  const [notes, setNotes] = useState<
-    {
-      id: string;
-      title: string;
-      description?: string;
-    }[]
-  >([]);
+  const [noteToView, setNoteToView] = useState<NoteType>();
+  const [notes, setNotes] = useState<NoteType[]>([]);
 
   const handleChange: ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
@@ -124,8 +124,14 @@ const App = () => {
               const newNotes = notes.filter((n) => n.id !== note.id); // filter out the deleted note
               setNotes(newNotes);
             }}
+            onViewClick={() => {
+              setNoteToView(note);
+            }}
             key={note.id}
             title={note.title}
+            description={
+              noteToView?.id == note.id ? noteToView?.description : ''
+            }
           />
         );
       })}
