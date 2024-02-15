@@ -125,7 +125,11 @@ const App = () => {
               setNotes(newNotes);
             }}
             onViewClick={() => {
-              setNoteToView(note);
+              if (noteToView) {
+                setNoteToView(undefined);
+              } else {
+                setNoteToView(note);
+              }
             }}
             key={note.id}
             title={note.title}
